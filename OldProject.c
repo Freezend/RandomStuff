@@ -28,7 +28,7 @@ double square(const int x) {
 
 pointer* readFile(const char* name, pointer* pointers) {
 	FILE* file = fopen(name, "r");
-	pointer* newObjects = malloc(sizeof(pointer));
+	pointer* newObjects = (pointer*)malloc(sizeof(pointer));
 	newObjects->pointerToCircle = pointers->pointerToCircle;
 	newObjects->pointerToRectangle = pointers->pointerToRectangle;
 	char type;
@@ -37,12 +37,12 @@ pointer* readFile(const char* name, pointer* pointers) {
 		while ((type = fgetc(file)) != EOF)
 			if (type == 'o') {
 				pointers->pointerToCircle = newObjects->pointerToCircle;
-				newObjects->pointerToCircle = malloc(sizeof(circle));
+				newObjects->pointerToCircle = (circle*)malloc(sizeof(circle));
 				if (fscanf(file, "%d %d %d\n", &newObjects->pointerToCircle->x, &newObjects->pointerToCircle->y, &newObjects->pointerToCircle->r))
 					newObjects->pointerToCircle->next = pointers->pointerToCircle;
 			} else if (type == 'p') {
 				pointers->pointerToRectangle = newObjects->pointerToRectangle;
-				newObjects->pointerToRectangle = malloc(sizeof(rectangle));
+				newObjects->pointerToRectangle = (rectangle*)malloc(sizeof(rectangle));
 				if (fscanf(file, "%d %d %d %d\n", &newObjects->pointerToRectangle->x, &newObjects->pointerToRectangle->y, &newObjects->pointerToRectangle->x2, &newObjects->pointerToRectangle->y2))
 					newObjects->pointerToRectangle->next = pointers->pointerToRectangle;
 			}
@@ -176,7 +176,7 @@ void writeToFile(const char* name, const pointer* pointers) {
 }
 
 int main() {
-	pointer* pointers = malloc(sizeof(pointer));
+	pointer* pointers = (pointer*)malloc(sizeof(pointer));
 	pointers->pointerToCircle = NULL;
 	pointers->pointerToRectangle = NULL;
 
