@@ -23,7 +23,7 @@ d = round(32/n, 2)
 print("Opcja 1: każdy po {} kawalkow, {} zostaje".format(r, z))
 print("Opcja 2: kazdy po {} kawalkow".format(d))
 
-# 5 (o to chodzi?)
+# 5
 z = input("Zdanie: ").split()[::-1]
 for i in z:
 	print(i)
