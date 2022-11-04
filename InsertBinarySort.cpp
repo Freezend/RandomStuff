@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 void InsertBinarySort(int* T, int n) {
 	int y, m, l, r, w, p;
 	for (y = 1; y < n; ++y) {
-		l = 0, r = y - 1, w = -1, p = T[y];
+		l = 0, r = y - 1, p = T[y];
 
-		while (w == -1)
+		while (true)
 			if (l < r) {
 				m = (l + r) / 2;
 				if (p < T[m])
@@ -14,14 +15,18 @@ void InsertBinarySort(int* T, int n) {
 					l = m + 1;
 			} else {
 				w = (p < T[l]) ? l : (l + 1);
+				break;
 			}
 
 		for (int a = 0; a < n; ++a) if (a == y) printf("<%d> ", T[a]); else if (a == w) printf(">%d< ", T[a]); else printf("%d ", T[a]); printf("\n");
+		
+		memcpy((T + w + 1), (T + w), (y - w) * sizeof(int));
+		T[w] = p;
 
-		r = y - 1;
-		while (r >= w)
-			T[r + 1] = T[r--];
-		T[r + 1] = p;
+		//l = y, r = y + 1;
+		//while (--r > w)
+		//	T[r] = T[--l];
+		//T[r] = p;
 	}
 }
 
