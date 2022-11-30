@@ -113,14 +113,13 @@ void WriteOne(cList* cElement) {
 
 void WriteAll(cList* cFirst) {
 	cList* o = cFirst;
-	if (o != NULL) {
+	if (o != NULL)
 		do {
 			printf("%s %d\n", (o->s) ? (o->s) : "", o->x);
 			o = o->next;
 		} while (o != NULL);
-	} else {
+	else
 		printf("NULL\n");
-	}
 	printf("\n");
 }
 
