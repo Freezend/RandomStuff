@@ -12,16 +12,16 @@ typedef struct customList {
 
 cList* GetLast(cList* cFirst) {
 	cList* o = cFirst;
-	if (o != NULL)
-		while (o->next != NULL)
+	if (o)
+		while (o->next)
 			o = o->next;
 	return o;
 }
 
 cList* GetFirst(cList* cLast) {
 	cList* o = cLast;
-	if (o != NULL)
-		while (o->prev != NULL)
+	if (o)
+		while (o->prev)
 			o = o->prev;
 	return o;
 }
@@ -35,7 +35,7 @@ cList* Insert(cList* cFirst, const char* s, int x) {
 		n->x = x;
 		n->prev = NULL;
 		n->next = cFirst;
-		if (cFirst != NULL)
+		if (cFirst)
 			cFirst->prev = n;
 		return n;
 	} else {
@@ -52,7 +52,7 @@ cList* Append(cList* cLast, const char* s, int x) {
 		n->x = x;
 		n->prev = cLast;
 		n->next = NULL;
-		if (cLast != NULL)
+		if (cLast)
 			cLast->next = n;
 		return n;
 	} else {
@@ -62,8 +62,8 @@ cList* Append(cList* cLast, const char* s, int x) {
 
 cList* RemoveFirst(cList* cFirst) {
 	cList* n = NULL;
-	if (cFirst != NULL) {
-		if (cFirst->next != NULL)
+	if (cFirst) {
+		if (cFirst->next)
 			cFirst->next->prev = NULL;
 		n = (cList*) malloc(sizeof(cList));
 		if (n) {
@@ -84,8 +84,8 @@ cList* RemoveFirst(cList* cFirst) {
 
 cList* RemoveLast(cList* cLast) {
 	cList* n = NULL;
-	if (cLast != NULL) {
-		if (cLast->prev != NULL)
+	if (cLast) {
+		if (cLast->prev)
 			cLast->prev->next = NULL;
 		n = (cList*)malloc(sizeof(cList));
 		if (n) {
@@ -105,7 +105,7 @@ cList* RemoveLast(cList* cLast) {
 }
 
 void WriteOne(cList* cElement) {
-	if (cElement != NULL)
+	if (cElement)
 		printf("%s %d\n\n", (cElement->s) ? (cElement->s) : "", cElement->x);
 	else
 		printf("NULL\n\n");
@@ -113,14 +113,25 @@ void WriteOne(cList* cElement) {
 
 void WriteAll(cList* cFirst) {
 	cList* o = cFirst;
-	if (o != NULL)
+	if (o)
 		do {
 			printf("%s %d\n", (o->s) ? (o->s) : "", o->x);
 			o = o->next;
-		} while (o != NULL);
+		} while (o);
 	else
 		printf("NULL\n");
 	printf("\n");
+}
+
+void RemoveAll(cList* cFirst) {
+	cList* o = cFirst;
+	if (o) {
+		while (o->next) {
+			o = o->next;
+			free(o->prev);
+		}
+		free(o);
+	}
 }
 
 int main() {
@@ -136,6 +147,7 @@ int main() {
 		printf("5. Write first element.\n");
 		printf("6. Write last element.\n");
 		printf("7. Write all elements.\n");
+		printf("8. Remove all elements.\n");
 		printf("0. Exit.\n");
 		printf("> ");
 		if (scanf_s("%d", &o) != 0) {
@@ -180,11 +192,18 @@ int main() {
 				case 7:
 					WriteAll(cFirst);
 					break;
+				case 8:
+					RemoveAll(cFirst);
+					cFirst = NULL;
+					cLast = NULL;
+					break;
 				default:
 					break;
 			}
 		}
 	} while (o != 0);
+
+	RemoveAll(cFirst);
 
 	return 0;
 }
