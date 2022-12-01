@@ -157,6 +157,7 @@ int main() {
 					cTemp = RemoveFirst(cFirst);
 					WriteOne(cTemp);
 					cFirst = cTempFirstLast;
+					cTempFirstLast = NULL;
 					if (!cFirst)
 						cLast = NULL;
 					break;
@@ -166,6 +167,7 @@ int main() {
 					cTemp = RemoveLast(cLast);
 					WriteOne(cTemp);
 					cLast = cTempFirstLast;
+					cTempFirstLast = NULL;
 					if (!cLast)
 						cFirst = NULL;
 					break;
