@@ -197,8 +197,6 @@ int main() {
 					cFirst = NULL;
 					cLast = NULL;
 					break;
-				default:
-					break;
 			}
 		}
 	} while (o != 0);
